@@ -1,0 +1,43 @@
+# Run the whole app:  docker compose up --build
+# Frontend: http://localhost:8080   Backend: http://localhost:5000/api/health
+services:
+  mongo:
+    image: mongo:7
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    depends_on:
+      - mongo
+      - redis
+    env_file:
+      - ./backend/.env
+    environment:
+      # these override the values in backend/.env so containers talk to each other
+      MONGO_URI: mongodb://mongo:27017/job-portal
+      REDIS_URL: redis://redis:6379
+      FRONTEND_URL: http://localhost:8080
+      NODE_ENV: production
+    ports:
+      - "5000:5000"
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_API_URL: http://localhost:5000/api
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+
+volumes:
+  mongo_data:
