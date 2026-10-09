@@ -1,4 +1,23 @@
 # Job Portal
+## Live Demo
+- Website: https://job-portal-beryl-sigma-80.vercel.app
+- API health check: https://job-portal-fz53.onrender.com/api/health
+
+> The backend runs on a free plan, so the first request may take up to a minute to wake up.
+
+## Screenshots
+
+### Home page
+![Home page](screenshots/home.png)
+
+### Login page
+![Login page](screenshots/login-page.png)
+
+### Posted jobs
+![Posted jobs](screenshots/posted-jobs.png)
+
+### Applicants
+![Applicants](screenshots/applicants.png)
 
 A full-stack job portal where **companies post jobs and review applicants** and **students browse, apply and track their applications**. Built with React, Node.js/Express and MongoDB, with role-based access control, automated tests, Docker and a CI pipeline.
 
